@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* nature-inspired green gradient palette */
+    --forest-deep: 18 45 28;
+    --forest-primary: 34 75 48;
+    --forest-bright: 52 125 78;
+    --forest-light: 88 165 118;
+    --forest-mist: 168 208 188;
+    --forest-whisper: 228 242 235;
+    
+    /* orange accent for cta */
+    --sun-glow: 255 145 77;
+    --sun-bright: 255 178 115;
+    --sun-soft: 255 210 165;
+    
+    /* neutral tones */
+    --bark-dark: 35 28 22;
+    --bark-medium: 88 78 68;
+    --moss-text: 245 242 238;
+    
+    /* semantic colors */
+    --background: 250 248 245;
+    --foreground: var(--bark-dark);
+    --primary: var(--forest-primary);
+    --secondary: var(--sun-glow);
+    --accent: var(--forest-bright);
+    --muted: var(--forest-whisper);
+
+    /* typography foundations */
+    /* Fallback stack is important for CLS */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', Consolas, Monaco, monospace;
+
+    /* font weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+
+    /* text colors using forestry palette */
+    --color-text-primary: rgb(var(--bark-dark));
+    --color-text-secondary: rgb(var(--bark-medium));
+    --color-text-muted: rgba(var(--bark-medium), 0.7);
+    --color-text-dim: rgba(var(--bark-medium), 0.5);
+    --color-text-forest: rgb(var(--forest-primary));
+    --color-text-accent: rgb(var(--forest-bright));
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))];
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.7;
+    font-size: 17px;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    font-optical-sizing: auto;
+    overflow-x: hidden;
+  }
+
+  /* all headings base */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1;
+  }
+
+  /* individual heading sizes with responsive clamp */
+  h1 {
+    font-size: clamp(56px, 8vw, 96px);
+    line-height: 1.1;
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.15;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.2;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+  }
+
+  h4 {
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.3;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.02em;
+  }
+
+  h5 {
+    font-size: clamp(20px, 2.5vw, 24px);
+    line-height: 1.4;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.02em;
+  }
+
+  h6 {
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 1.5;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.02em;
+  }
+
+  /* paragraph base */
+  p {
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-normal);
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* text size utilities */
+  .text-large {
+    font-size: 20px;
+    line-height: 1.7;
+  }
+
+  .text-small {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .text-xs {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .text-xxs {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* code and monospace */
+  code, pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    font-weight: var(--font-weight-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    background: rgba(var(--forest-whisper), 0.5);
+    color: var(--color-text-forest);
+    font-size: 0.875em;
+  }
+
+  pre {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: rgba(var(--forest-whisper), 0.3);
+    overflow-x: auto;
+    line-height: 1.6;
+  }
+
+  pre code {
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  /* links */
+  a {
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-medium);
+    transition: color 200ms ease-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* buttons */
+  button {
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-semibold);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* inputs and textareas */
+  input, textarea, select {
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* gradient text utility using forestry colors */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--forest-primary)),
+      rgb(var(--forest-bright)),
+      rgb(var(--forest-light))
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  .gradient-text-accent {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--sun-glow)),
+      rgb(var(--sun-bright)),
+      rgb(var(--sun-soft))
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* responsive typography adjustments */
+  @media (max-width: 768px) {
+    html {
+      font-size: 15px;
+    }
+    
+    body {
+      font-size: 16px;
+    }
+    
+    p {
+      font-size: 16px;
+    }
+    
+    .text-large {
+      font-size: 18px;
+    }
+
+    .text-small {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
