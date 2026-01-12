@@ -7,11 +7,14 @@ import {
   AlertCircle, 
   Calculator,
   ArrowRight,
-  CheckCircle2,
-  ShieldCheck,
-  Award
+  CheckCircle2
 } from 'lucide-react';
-import metsaMuuk7 from 'figma:asset/0bdc61dc572f75d931930e884b22700d464aab10.png';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "./ui/dialog";
+import evulCertificate from 'figma:asset/59fd81018a595483359ff8dfe9064710636bbb87.png';
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // STANDALONE FOREST PRICE SECTION
@@ -20,7 +23,7 @@ import metsaMuuk7 from 'figma:asset/0bdc61dc572f75d931930e884b22700d464aab10.png
 // - Sticky Scroll Layout (Desktop): Left visual stays fixed while right content scrolls
 // - Deep Dive Content: Detailed factors affecting price
 // - Premium CTA: Distinctive call-to-action block at the bottom
-// ══════════════════════════════════════════════════════════════════════════════���════════════════
+// ═══════════════════════════════════════════════════════════════════════════════════════════════
 
 const PRICE_FACTORS = [
   {
@@ -190,24 +193,31 @@ export const ForestPriceSection: React.FC = () => {
                     täpset väärtust?
                   </h3>
                   
-                  {/* Text with padding-right 60px on desktop */}
-                  <p className="text-base lg:text-lg text-[rgba(228,242,235,0.9)] leading-relaxed max-w-xl lg:pr-[60px]">
-                    Meie eksperdid koostavad sulle põhjaliku hinnaanalüüsi tasuta. 
-                    See on esimene samm targa otsuse suunas.
-                  </p>
+                  {/* Text and Certificate Image in two columns */}
+                  <div className="flex flex-row gap-6 items-start lg:pr-[20px]">
+                    <p className="text-base lg:text-lg text-[rgba(228,242,235,0.9)] leading-relaxed max-w-xl flex-1">
+                      Meie eksperdid koostavad sulle põhjaliku hinnaanalüüsi tasuta. 
+                      See on esimene samm targa otsuse suunas.
+                    </p>
 
-                  {/* Trust Badge */}
-                  <div className="inline-flex items-center gap-4 p-3 pr-6 bg-white rounded-2xl shadow-lg w-full sm:w-auto">
-                    <img 
-                      src={`${metsaMuuk7.split('#')[0]}#filename=metsa-muuk-7.png`}
-                      alt="metsa müük usaldusväärne partner" 
-                      className="w-10 h-10 lg:w-12 lg:h-12 shrink-0 object-contain"
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-[14px] lg:text-[15px] font-bold text-[rgb(22,56,35)] leading-tight">
-                        Usaldusväärne ettevõte
-                      </span>
-                    </div>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="shrink-0 cursor-pointer bg-white rounded-lg p-2 shadow-lg hover:scale-105 transition-transform duration-300 w-[80px] group">
+                          <img 
+                            src={evulCertificate} 
+                            alt="Estonian Creditors Union Certificate" 
+                            className="w-full h-auto object-contain"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[90vw] max-h-[90vh] w-auto h-auto p-0 overflow-hidden bg-transparent border-none shadow-none flex items-center justify-center">
+                        <img 
+                          src={evulCertificate} 
+                          alt="Estonian Creditors Union Certificate" 
+                          className="max-w-full max-h-[85vh] object-contain rounded-lg bg-white"
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
                 

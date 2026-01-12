@@ -3,6 +3,7 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { GlobalBackground } from '../layout/GlobalBackground';
 import { HeroNew } from '../HeroNew';
+import { ContactDetailsSection } from '../ContactDetailsSection';
 import { useSeo } from '../../hooks/useSeo';
 
 export const KontaktPage: React.FC = () => {
@@ -17,8 +18,9 @@ export const KontaktPage: React.FC = () => {
       <GlobalBackground />
       <Header />
       
-      <main className="relative z-10 pb-20">
-        <HeroNew />
+      <main className="relative z-10">
+        <HeroNew title="Kontakt" />
+        <ContactDetailsSection />
       </main>
 
       <Footer />

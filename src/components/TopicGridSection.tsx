@@ -32,17 +32,17 @@ interface TopicItem {
 
 const TOPICS: TopicItem[] = [
   // Row 1
-  { title: "Metsateatis", icon: FileText, url: "https://metsamaakler.ee/metsateatis/" },
-  { title: "Metsakava", icon: Map, url: "https://metsamaakler.ee/metsamajandamiskava/" },
-  { title: "Hooldusraied", icon: Trees, url: "https://metsamaakler.ee/hooldusraied/" },
-  { title: "Raieõigus", icon: FileSignature, url: "https://metsamaakler.ee/raieoiguse-muuk/" },
-  { title: "Metsa istutamine", icon: Sprout, url: "https://metsamaakler.ee/metsa-istutamine/" },
+  { title: "Metsateatis", icon: FileText, url: "/metsateatis/" },
+  { title: "Metsakava", icon: Map, url: "/metsamajandamiskava/" },
+  { title: "Hooldusraied", icon: Trees, url: "/hooldusraied/" },
+  { title: "Raieõigus", icon: FileSignature, url: "/raieoiguse-muuk/" },
+  { title: "Metsa istutamine", icon: Sprout, url: "/metsa-istutamine/" },
   // Row 2
-  { title: "Metsa hind", icon: BadgeEuro, url: "https://metsamaakler.ee/metsa-hind/" },
-  { title: "Raie hind", icon: Coins, url: "https://metsamaakler.ee/raieoiguse-hind/" },
-  { title: "Põllumaa hind", icon: Tractor, url: "https://metsamaakler.ee/pollumaa-hind/" },
-  { title: "Istikute hind", icon: Tag, url: "https://metsamaakler.ee/istikute-hind/" },
-  { title: "Metsamajandus", icon: PieChart, url: "https://metsamaakler.ee/metsamajandus/" },
+  { title: "Metsa hind", icon: BadgeEuro, url: "/metsa-hind/" },
+  { title: "Raie hind", icon: Coins, url: "/raieoiguse-hind/" },
+  { title: "Põllumaa hind", icon: Tractor, url: "/pollumaa-hind/" },
+  { title: "Istikute hind", icon: Tag, url: "/istikute-hind/" },
+  { title: "Metsamajandus", icon: PieChart, url: "/metsamajandus/" },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
