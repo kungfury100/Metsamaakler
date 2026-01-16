@@ -1,31 +1,56 @@
-deploy:
+name: Build & Deploy eestimetsamaakler.ee
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: ./build
+
+  deploy:
     name: Deploy to Server
     runs-on: ubuntu-latest
     needs: build
-    
     environment:
       name: production
       url: https://eestimetsamaakler.ee
     
     steps:
-    - name: Download Build Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: production-files
-        path: ./build
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-files
+          path: ./build
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh/
-        # Paste the private key into a file
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        # Set strict permissions required by SSH
-        chmod 600 ~/.ssh/id_ed25519
-        # Add the server to known_hosts to prevent interactive prompts
-        ssh-keyscan -H ${{ secrets.HOST_SERVER_IP }} >> ~/.ssh/known_hosts
-    
-    - name: Copy files to server
-      run: |
-        # Changed: Removed the extra @IP and simplified the path
-        # Using -i to explicitly point to the ED25519 key
-        rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler.ee
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.HOST_SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Copy files to server
+        run: |
+          rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler.ee
