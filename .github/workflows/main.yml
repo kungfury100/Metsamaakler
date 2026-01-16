@@ -25,13 +25,13 @@ jobs:
 
       - name: Fix absolute paths to relative
         run: |
-          # Removes the leading / from assets paths
+          # Removes the leading / from assets paths to make them relative
           find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|src="/assets/|src="assets/|g' {} +
           find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|href="/assets/|href="assets/|g' {} +
           find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|"/assets/|"assets/|g' {} +
 
       - name: Upload Build Artifact
-        uses: actions/artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: production-files
           path: ./build
@@ -60,5 +60,5 @@ jobs:
 
       - name: Copy files to server
         run: |
-          # UPDATED DESTINATION: Removed the extra subfolder to match Zone's DocumentRoot
+          # Syncing directly to the folder where Zone DocumentRoot points
           rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
