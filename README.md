@@ -1,7 +1,7 @@
 
-  # Metsamakelaar
+  # Metsamaakler
 
-  This is a code bundle for Metsamakelaar. The original project is available at https://www.figma.com/design/M2L05pyMlT2m5TcnLXOc4N/Metsamakelaar.
+  This is a code bundle for Metsamaakler. The original project is available at https://www.figma.com/design/M2L05pyMlT2m5TcnLXOc4N/Metsamakelaar.
 
   ## Running the code
 
