@@ -23,6 +23,14 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Fix absolute paths to relative
+        run: |
+          # Removes the leading / from assets paths to make them relative
+          # This fixes 404 errors when files are in a subfolder
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|src="/assets/|src="assets/|g' {} +
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|href="/assets/|href="assets/|g' {} +
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|"/assets/|"assets/|g' {} +
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
