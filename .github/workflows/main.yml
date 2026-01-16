@@ -53,4 +53,4 @@ jobs:
 
       - name: Copy files to server
         run: |
-          rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler.ee
+          rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
