@@ -1,4 +1,4 @@
-name: Build & Deploy metsamaahind.ee
+name: Build & Deploy eestimetsamaakler.ee
 on:
   push:
     branches:
@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Using a recent LTS version of Node.js
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm install
@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: production-files
-          path: ./out
+          path: ./build    # Changed from ./out to ./build
   
   deploy:
     name: Deploy to Server
@@ -36,25 +36,23 @@ jobs:
     
     environment:
       name: production
-      url: https://metsamaahind.ee # The public-facing domain
+      url: https://eestimetsamaakler.ee
     
     steps:
     - name: Download Build Artifact
       uses: actions/download-artifact@v4
       with:
         name: production-files
-        path: ./out
+        path: ./build    # Changed from ./out to ./build
 
     - name: Set up SSH
       run: |
         mkdir -p ~/.ssh/
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        rm -f ~/.ssh/known_hosts
-        # Scan both the IP and hostname to ensure proper host key verification
         ssh-keyscan -t rsa,ecdsa,ed25519 -H ${{ secrets.HOST_SERVER_IP }} >> ~/.ssh/known_hosts
-        ssh-keyscan -t rsa,ecdsa,ed25519 -H erametsaselts.ee >> ~/.ssh/known_hosts
     
     - name: Copy files to server
       run: |
-        rsync -vrm --delete -e "ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/known_hosts" ./out/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler.ee
+        # Use ./build/ as the source and ensure the target path is correct
+        rsync -vrm --delete -e "ssh -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}@${{ secrets.HOST_SERVER_IP }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler.ee
