@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Magnetic } from './utils/Magnetic';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import logoImage from 'figma:asset/9dcda72c598330dc8a0a3e16c64e3b3a5261fe30.png';
+import logoImage from './assets/9dcda72c598330dc8a0a3e16c64e3b3a5261fe30.png';
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
