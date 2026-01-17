@@ -123,15 +123,14 @@ const LeftContent = memo(({ title }: { title?: string }) => {
                     boxShadow: '0 2px 4px rgba(88, 78, 68, 0.06)',
                   }}
                 >
-                  <OptimizedImage
-                    src={img.src}
-                    alt={img.alt} 
-                    priority={true}
-                    width={40}
-                    height={40}
-                    fit="cover"
-                    aspectRatio={1}
-                  />
+                  <img
+  src={img.src}
+  alt={img.alt}
+  className="w-full h-full object-cover"
+  width={40}
+  height={40}
+  loading="eager"
+/>
                 </div>
               ))}
             </div>
