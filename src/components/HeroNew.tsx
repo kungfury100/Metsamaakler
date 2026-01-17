@@ -2,9 +2,9 @@ import React, { useState, memo, useMemo } from 'react';
 import { Parallax } from './utils/Parallax';
 import { MicroInteractive } from './MicroInteractive';
 import { OptimizedImage } from './ui/OptimizedImage';
-import metsaMuukKlient1 from 'figma:asset/4c712585da1b4b9fbe2ba1a7295b58aaa2ba6813.png';
-import metsaMuukKlient2 from 'figma:asset/200dbd6af8d7ed82ca500c8263b23c6fed4e8a97.png';
-import metsaMuukKlient3 from 'figma:asset/b51955e50938bbde26efd2e38adab0bce951399b.png';
+import metsaMuukKlient1 from '../assets/4c712585da1b4b9fbe2ba1a7295b58aaa2ba6813.png';
+import metsaMuukKlient2 from '../assets/200dbd6af8d7ed82ca500c8263b23c6fed4e8a97.png';
+import metsaMuukKlient3 from '../assets/b51955e50938bbde26efd2e38adab0bce951399b.png';
 import { HeroContactForm } from './hero/HeroContactForm';
 import { StarIcon, EvaluationIcon, CertifiedIcon, BestPriceIcon } from './hero/HeroIcons';
 
