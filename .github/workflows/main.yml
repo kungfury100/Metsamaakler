@@ -23,6 +23,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Fix absolute paths to relative
+        run: |
+          # Converts "/assets/" to "assets/" in all core files
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|src="/assets/|src="assets/|g' {} +
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|href="/assets/|href="assets/|g' {} +
+          find ./build -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|"/assets/|"assets/|g' {} +
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -33,10 +40,6 @@ jobs:
     name: Deploy to Server
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: production
-      url: https://eestimetsamaakler.ee
-    
     steps:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
@@ -53,4 +56,5 @@ jobs:
 
       - name: Copy files to server
         run: |
-          rsync -vrm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
+          # Use -a (archive mode) to ensure images stay as binary and don't corrupt
+          rsync -avzm --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
