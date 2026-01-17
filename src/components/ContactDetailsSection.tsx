@@ -70,8 +70,8 @@ export const ContactDetailsSection: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Aadress</h4>
                     <p className="text-lg text-[#163823] font-medium leading-tight">
-                      Tartu maakond, Tartu Linn, <br />
-                      Kaunase pst 72, 50706
+                      Veerenni tn 55, 11313 <br />
+                      Tallinn
                     </p>
                   </div>
                 </div>
