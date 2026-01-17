@@ -20,7 +20,7 @@ import {
   CheckCircle2,
   AlertTriangle
 } from 'lucide-react';
-import HERO_IMAGE from "figma:asset/b950c2e029e2e195de310c3ce12771f9b7c17625.png";
+import HERO_IMAGE from "../assets/b950c2e029e2e195de310c3ce12771f9b7c17625.png";
 
 export const JuurepessiKasutaminePage: React.FC = () => {
   const handleCtaClick = () => {

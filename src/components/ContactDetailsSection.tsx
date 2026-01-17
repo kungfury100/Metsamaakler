@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail, FileText } from 'lucide-react';
-import evulCertificate from 'figma:asset/59fd81018a595483359ff8dfe9064710636bbb87.png';
+import evulCertificate from '../assets/59fd81018a595483359ff8dfe9064710636bbb87.png';
 import {
   Dialog,
   DialogContent,

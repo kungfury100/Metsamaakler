@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { MicroInteractive } from '../MicroInteractive';
 import { OptimizedImage } from '../ui/OptimizedImage';
-import metsaMuuk6 from 'figma:asset/4b2e194a21319b2ceec94f7dc877528470a8fcf4.png';
+import metsaMuuk6 from '../assets/4b2e194a21319b2ceec94f7dc877528470a8fcf4.png';
 
 // Use same image as in AboutSection ("põlvkondade tarkus" section)
 const HERO_IMAGE_SRC = `${metsaMuuk6.split('#')[0]}#filename=metsa-muuk-6.png`;

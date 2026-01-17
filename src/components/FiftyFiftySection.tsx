@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ArrowRight, Check } from 'lucide-react';
-import metsaMuuk5 from 'figma:asset/b950c2e029e2e195de310c3ce12771f9b7c17625.png';
+import metsaMuuk5 from '../assets/b950c2e029e2e195de310c3ce12771f9b7c17625.png';
 import { Reveal } from './utils/Reveal';
 import { Parallax } from './utils/Parallax';
 import { MicroInteractive } from './MicroInteractive';

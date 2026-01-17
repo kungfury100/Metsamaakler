@@ -1,7 +1,7 @@
 import React from 'react';
 import { OptimizedImage } from './ui/OptimizedImage';
 import { Quote, Award, Users, Leaf } from 'lucide-react';
-import metsaMuuk6 from 'figma:asset/4b2e194a21319b2ceec94f7dc877528470a8fcf4.png';
+import metsaMuuk6 from '../assets/4b2e194a21319b2ceec94f7dc877528470a8fcf4.png';
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // STANDALONE ABOUT SECTION - ENTERPRISE GRADE

@@ -14,7 +14,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "./ui/dialog";
-import evulCertificate from 'figma:asset/59fd81018a595483359ff8dfe9064710636bbb87.png';
+import evulCertificate from '../assets/59fd81018a595483359ff8dfe9064710636bbb87.png';
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // STANDALONE FOREST PRICE SECTION
