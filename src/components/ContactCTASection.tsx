@@ -13,9 +13,9 @@ import {
 } from 'lucide-react';
 import { OptimizedImage } from './ui/OptimizedImage';
 import { StarIcon } from './hero/HeroIcons';
-import metsaMuukKlient1 from 'figma:asset/4c712585da1b4b9fbe2ba1a7295b58aaa2ba6813.png';
-import metsaMuukKlient2 from 'figma:asset/200dbd6af8d7ed82ca500c8263b23c6fed4e8a97.png';
-import metsaMuukKlient3 from 'figma:asset/b51955e50938bbde26efd2e38adab0bce951399b.png';
+import metsaMuukKlient1 from '../assets/4c712585da1b4b9fbe2ba1a7295b58aaa2ba6813.png';
+import metsaMuukKlient2 from '../assets/200dbd6af8d7ed82ca500c8263b23c6fed4e8a97.png';
+import metsaMuukKlient3 from '../assets/b51955e50938bbde26efd2e38adab0bce951399b.png';
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // CONTACT CTA SECTION
@@ -94,15 +94,14 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
                         boxShadow: '0 2px 4px rgba(88, 78, 68, 0.06)',
                       }}
                     >
-                      <OptimizedImage
-                        src={`${img.src.split('#')[0]}#filename=metsa-muuk-klient-${i+1}.png`}
-                        alt={img.alt} 
-                        priority={true}
-                        width={40}
-                        height={40}
-                        fit="cover"
-                        aspectRatio={1}
-                      />
+                      <img
+  src={img.src}
+  alt={img.alt}
+  className="w-full h-full object-cover"
+  width={40}
+  height={40}
+  loading="eager"
+/>
                     </div>
                   ))}
                 </div>
