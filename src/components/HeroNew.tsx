@@ -124,7 +124,7 @@ const LeftContent = memo(({ title }: { title?: string }) => {
                   }}
                 >
                   <OptimizedImage
-                    src={`${img.src.split('#')[0]}#filename=metsa-muuk-klient-${i+1}.png`}
+                    src={img.src}
                     alt={img.alt} 
                     priority={true}
                     width={40}
