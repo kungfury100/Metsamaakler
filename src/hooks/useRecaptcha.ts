@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-const RECAPTCHA_SITE_KEY = '6Lc9OOIrAAAAABtQtpV7Fbkck2fu81QxfbHFFZ1F';
+const RECAPTCHA_SITE_KEY = '6LcfUMIpAAAAABD285l8RoDHfvOgbwoz8TsahnAu';
 
 export const useRecaptcha = () => {
   const executeRecaptcha = useCallback(async (action: string): Promise<string> => {
