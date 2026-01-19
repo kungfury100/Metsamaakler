@@ -147,7 +147,6 @@ export const Footer: React.FC = () => {
                     <FooterLink href="/ostame-kasvavat-metsa/">Metsa müük</FooterLink>
                     <FooterLink href="/raieoiguse-muuk/">Raieõiguse müük</FooterLink>
                     <FooterLink href="/metsa-hindamine/">Metsa hindamine</FooterLink>
-                    <FooterLink href="#kontakt">Konsultatsioon</FooterLink>
                   </nav>
                 </div>
               </Reveal>

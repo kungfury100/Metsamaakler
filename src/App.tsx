@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PhysicsProvider } from './contexts/PhysicsContext';
 import { FontLoader } from './components/utils/FontLoader';
-import { DebugMenu } from './components/utils/DebugMenu';
 import './styles/globals.css';
 
 // Import Pages
@@ -198,7 +197,6 @@ export default function App() {
   return (
     <PhysicsProvider>
       <FontLoader />
-      <DebugMenu />
       {renderRoute()}
     </PhysicsProvider>
   );

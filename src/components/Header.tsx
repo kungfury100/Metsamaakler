@@ -29,7 +29,6 @@ export const Header: React.FC = () => {
         { label: 'Metsa müük', href: '/ostame-kasvavat-metsa/' },
         { label: 'Raieõiguse müük', href: '/raieoiguse-muuk/' },
         { label: 'Metsa hindamine', href: '/metsa-hindamine/' },
-        { label: 'Konsultatsioon', href: '#kontakt' },
       ]
     },
     { label: 'Ettevõttest', href: '/ettevottest/' },
