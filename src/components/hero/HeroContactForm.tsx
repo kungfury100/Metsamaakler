@@ -1,6 +1,7 @@
 import React, { useState, memo, useMemo } from 'react';
 import { Magnetic } from '../utils/Magnetic';
 import { ProtectedDataIcon, FastResponseIcon, InputErrorIcon } from './HeroIcons';
+import { useRecaptcha } from '../../hooks/useRecaptcha';
 
 interface UltraInputProps {
   label: string;
@@ -173,31 +174,75 @@ export const HeroContactForm: React.FC = memo(() => {
     email: '',
     paring: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { executeRecaptcha } = useRecaptcha();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Execute reCAPTCHA
+      const recaptchaToken = await executeRecaptcha('contact_form');
+
+      // Create FormData
+      const formDataToSend = new FormData();
+      formDataToSend.append('nimi', formData.nimi);
+      formDataToSend.append('telefon', formData.telefon);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('paring', formData.paring);
+      formDataToSend.append('recaptcha_token', recaptchaToken);
+
+      // Submit to PHP endpoint
+      const response = await fetch('/api/contact.php', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.message);
+        // Reset form on success
+        setFormData({
+          nimi: '',
+          telefon: '',
+          email: '',
+          paring: '',
+        });
+      } else {
+        setSubmitError(result.error || 'Vormi saatmisel tekkis viga. Palun proovige uuesti.');
+      }
+
+    } catch (error) {
+      console.error('Vormi saatmine ebaõnnestus:', error);
+      setSubmitError('Vormi saatmisel tekkis viga. Palun proovige uuesti.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const buttonStyle = useMemo(() => ({
     width: '100%',
     padding: '17px 24px',
     borderRadius: '10px',
-    background: hoveredButton ? 'rgb(42, 105, 65)' : 'rgb(52, 125, 78)',
+    background: isSubmitting ? 'rgb(88, 78, 68)' : hoveredButton ? 'rgb(42, 105, 65)' : 'rgb(52, 125, 78)',
     color: 'rgb(255, 255, 255)',
     fontSize: '1.0625rem',
     fontWeight: 700,
     border: 'none',
-    cursor: 'pointer',
+    cursor: isSubmitting ? 'not-allowed' : 'pointer',
     transition: 'all 300ms cubic-bezier(0.25, 0.8, 0.25, 1)',
     letterSpacing: '-0.015em',
-    boxShadow: hoveredButton
+    boxShadow: hoveredButton && !isSubmitting
       ? `0 4px 12px rgba(34, 75, 48, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15)`
       : `0 2px 6px rgba(34, 75, 48, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.12)`,
-    transform: hoveredButton ? 'translateY(-1px)' : 'translateY(0)',
+    transform: hoveredButton && !isSubmitting ? 'translateY(-1px)' : 'translateY(0)',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
-  }), [hoveredButton]);
+  }), [hoveredButton, isSubmitting]);
 
   return (
     <div
@@ -269,15 +314,21 @@ export const HeroContactForm: React.FC = memo(() => {
         />
 
         <div className="pt-2">
+          {submitError && (
+            <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+              {submitError}
+            </div>
+          )}
           <button
             type="submit"
-            onMouseEnter={() => setHoveredButton(true)}
+            disabled={isSubmitting}
+            onMouseEnter={() => !isSubmitting && setHoveredButton(true)}
             onMouseLeave={() => setHoveredButton(false)}
-            className="w-full transition-transform duration-300 ease-out active:scale-[0.99]"
+            className="w-full transition-transform duration-300 ease-out active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
             style={buttonStyle}
-            aria-label="Saada tasuta päring"
+            aria-label={isSubmitting ? "Saadan..." : "Saada tasuta päring"}
           >
-            Saada tasuta päring
+            {isSubmitting ? "Saadan..." : "Saada tasuta päring"}
           </button>
         </div>
 

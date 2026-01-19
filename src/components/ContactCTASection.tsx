@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Magnetic } from './utils/Magnetic';
 import { 
   ShieldCheck, 
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { OptimizedImage } from './ui/OptimizedImage';
 import { StarIcon } from './hero/HeroIcons';
+import { useRecaptcha } from '../hooks/useRecaptcha';
 import metsaMuukKlient1 from '../assets/4c712585da1b4b9fbe2ba1a7295b58aaa2ba6813.png';
 import metsaMuukKlient2 from '../assets/200dbd6af8d7ed82ca500c8263b23c6fed4e8a97.png';
 import metsaMuukKlient3 from '../assets/b51955e50938bbde26efd2e38adab0bce951399b.png';
@@ -37,6 +38,61 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
   title = "Metsamaakler",
   subtitle = "Metsa müük, raieõiguse müük, metsakinnistutega seotud tehingud. Ostame teie kinnistu või leiame parima hinnaga ostja ilma ebaprofessionaalsete vahendajateta."
 }) => {
+  const [formData, setFormData] = useState({
+    nimi: '',
+    telefon: '',
+    email: '',
+    paring: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { executeRecaptcha } = useRecaptcha();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Execute reCAPTCHA
+      const recaptchaToken = await executeRecaptcha('contact_form');
+
+      // Create FormData
+      const formDataToSend = new FormData();
+      formDataToSend.append('nimi', formData.nimi);
+      formDataToSend.append('telefon', formData.telefon);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('paring', formData.paring);
+      formDataToSend.append('recaptcha_token', recaptchaToken);
+
+      // Submit to PHP endpoint
+      const response = await fetch('/api/contact.php', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.message);
+        // Reset form on success
+        setFormData({
+          nimi: '',
+          telefon: '',
+          email: '',
+          paring: '',
+        });
+      } else {
+        setSubmitError(result.error || 'Vormi saatmisel tekkis viga. Palun proovige uuesti.');
+      }
+
+    } catch (error) {
+      console.error('Vormi saatmine ebaõnnestus:', error);
+      setSubmitError('Vormi saatmisel tekkis viga. Palun proovige uuesti.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   const clientImages = [
     { src: metsaMuukKlient1, alt: 'metsa müük - rahulolev klient 1' },
     { src: metsaMuukKlient2, alt: 'metsa müük - rahulolev klient 2' },
@@ -163,7 +219,12 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
               </div>
 
               {/* Inputs */}
-              <form className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {submitError && (
+                  <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+                    {submitError}
+                  </div>
+                )}
                 <div className="relative">
                   <label htmlFor="contact-name" className="sr-only">Teie nimi</label>
                   <User className="absolute left-4 top-3.5 text-gray-400" size={20} aria-hidden="true" />
@@ -171,6 +232,9 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
                     id="contact-name"
                     type="text" 
                     placeholder="Teie nimi"
+                    value={formData.nimi}
+                    onChange={(e) => setFormData(prev => ({ ...prev, nimi: e.target.value }))}
+                    required
                     className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-[rgb(52,125,78)] focus:ring-2 focus:ring-[rgb(52,125,78)]/20 outline-none transition-all placeholder:text-gray-400 text-[rgb(22,56,35)] text-[16px] appearance-none"
                   />
                 </div>
@@ -182,6 +246,9 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
                     id="contact-phone"
                     type="tel" 
                     placeholder="+372 5XXX XXXX"
+                    value={formData.telefon}
+                    onChange={(e) => setFormData(prev => ({ ...prev, telefon: e.target.value }))}
+                    required
                     className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-[rgb(52,125,78)] focus:ring-2 focus:ring-[rgb(52,125,78)]/20 outline-none transition-all placeholder:text-gray-400 text-[rgb(22,56,35)] text-[16px] appearance-none"
                   />
                 </div>
@@ -193,6 +260,9 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
                     id="contact-email"
                     type="email" 
                     placeholder="teie@email.ee"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    required
                     className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-[rgb(52,125,78)] focus:ring-2 focus:ring-[rgb(52,125,78)]/20 outline-none transition-all placeholder:text-gray-400 text-[rgb(22,56,35)] text-[16px] appearance-none"
                   />
                 </div>
@@ -202,14 +272,18 @@ export const ContactCTASection: React.FC<ContactCTASectionProps> = ({
                   id="contact-message"
                   rows={4}
                   placeholder="Kirjeldage oma vajadust..."
+                  value={formData.paring}
+                  onChange={(e) => setFormData(prev => ({ ...prev, paring: e.target.value }))}
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[rgb(52,125,78)] focus:ring-2 focus:ring-[rgb(52,125,78)]/20 outline-none transition-all placeholder:text-gray-400 text-[rgb(22,56,35)] resize-none text-[16px] appearance-none"
                 ></textarea>
 
                 <button 
-                  type="button"
-                  className="w-full py-4 bg-[rgb(52,125,78)] text-white font-bold rounded-xl shadow-lg shadow-[rgba(52,125,78,0.2)] hover:bg-[rgb(42,105,63)] hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-[rgb(52,125,78)] text-white font-bold rounded-xl shadow-lg shadow-[rgba(52,125,78,0.2)] hover:bg-[rgb(42,105,63)] hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Saada tasuta päring
+                  {isSubmitting ? 'Saadan...' : 'Saada tasuta päring'}
                   <Send size={18} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
