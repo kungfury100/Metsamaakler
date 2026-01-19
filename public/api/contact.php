@@ -70,7 +70,7 @@ try {
     $emailContent .= "Saadetud: " . date('d.m.Y H:i:s') . "\n";
 
     // Send email
-    $to = 'karlsimmer@gmail.com';
+    $to = 'info@eestimetsamaakler.ee';
     $subject = 'Kontakt eestimetsamaakler.ee';
     $headers = "From: " . $email . "\r\n";
     $headers .= "Reply-To: " . $email . "\r\n";
