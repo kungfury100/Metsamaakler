@@ -73,12 +73,19 @@ import { KontaktPage } from './components/pages/KontaktPage';
 import { EttevottestPage } from './components/pages/EttevottestPage';
 
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState(window.location.pathname);
+  const getRoute = () => {
+    if (window.location.search.startsWith('?/')) {
+      return '/' + decodeURIComponent(window.location.search.slice(2).replace(/~and~/g, '&'));
+    }
+    return window.location.pathname;
+  };
+
+  const [currentRoute, setCurrentRoute] = useState(getRoute());
 
   useEffect(() => {
     // 1. Handle Browser "Back/Forward" buttons
     const handlePopState = () => {
-      setCurrentRoute(window.location.pathname);
+      setCurrentRoute(getRoute());
     };
     window.addEventListener("popstate", handlePopState);
 
@@ -107,6 +114,11 @@ export default function App() {
 
     // Attach to the entire document
     document.addEventListener("click", handleClick);
+
+    // Clean the URL if redirected
+    if (window.location.search.startsWith('?/')) {
+      window.history.replaceState({}, '', getRoute());
+    }
 
     return () => {
       window.removeEventListener("popstate", handlePopState);
