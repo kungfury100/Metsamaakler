@@ -84,20 +84,20 @@ export const ContactDetailsSection: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Telefon</h4>
                     <p className="text-lg text-[#163823] font-medium group-hover:text-[#347D4E] transition-colors">
-                      +372 5376 5888
+                      +372 5846 6110
                     </p>
                   </div>
                 </a>
 
                 {/* Email */}
-                <a href="mailto:info@metsamaakler.ee" className="flex items-start gap-4 group">
+                <a href="mailto:info@eestimetsamaakler.ee" className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-[#347D4E]/10 flex items-center justify-center text-[#347D4E] shrink-0 group-hover:bg-[#347D4E] group-hover:text-white transition-all duration-300">
                     <Mail className="w-6 h-6" />
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">E-mail</h4>
                     <p className="text-lg text-[#163823] font-medium group-hover:text-[#347D4E] transition-colors">
-                      info@metsamaakler.ee
+                      info@eestimetsamaakler.ee
                     </p>
                   </div>
                 </a>

@@ -11,7 +11,7 @@ interface ServiceSidebarProps {
 export const ServiceSidebar: React.FC<ServiceSidebarProps> = ({
   title = "Alustame koostööd",
   phone = "+372 55 555 555",
-  email = "info@metsamaakler.ee",
+  email = "info@eestimetsamaakler.ee",
   onCtaClick,
 }) => {
   const scrollToContact = (e: React.MouseEvent) => {

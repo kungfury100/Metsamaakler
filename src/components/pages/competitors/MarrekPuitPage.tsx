@@ -196,13 +196,13 @@ export const MarrekPuitPage: React.FC = () => {
                       </div>
                     </a>
 
-                    <a href="mailto:info@metsamaakler.ee" className="flex items-center gap-4 p-4 bg-white rounded-xl border border-black/5 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-out group/item">
+                    <a href="mailto:info@eestimetsamaakler.ee" className="flex items-center gap-4 p-4 bg-white rounded-xl border border-black/5 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-out group/item">
                       <div className="text-blue-600 group-hover/item:scale-105 transition-transform duration-200">
                         <Mail size={24} strokeWidth={1.5} />
                       </div>
                       <div>
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block group-hover/item:text-blue-600 transition-colors duration-200">Kirjuta meile</span>
-                        <span className="font-bold text-[#1a0f00] transition-colors">info@metsamaakler.ee</span>
+                        <span className="font-bold text-[#1a0f00] transition-colors">info@eestimetsamaakler.ee</span>
                       </div>
                     </a>
                   </div>
