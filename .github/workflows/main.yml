@@ -49,6 +49,5 @@ jobs:
 
       - name: Copy files to server
         run: |
-          # Added -c (checksum) to force overwrite the corrupted images on the server
-          # Note: explicitly include .htaccess and other hidden files
-          rsync -avzcm --delete --include=".*" -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
+          # Deploy all files including hidden files like .htaccess
+          rsync -avzc --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
