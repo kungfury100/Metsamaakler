@@ -49,5 +49,14 @@ jobs:
 
       - name: Copy files to server
         run: |
+          # List files before sync to debug
+          echo "Files in build directory:"
+          ls -la ./build/
+          
           # Deploy all files including hidden files like .htaccess
-          rsync -avzc --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
+          # Using explicit options: -a includes hidden files, -v for verbose, -z for compression
+          rsync -avz --delete --no-perms --no-owner --no-group -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" ./build/ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/
+          
+          # Verify .htaccess was uploaded
+          echo "Verifying .htaccess on server:"
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_LOGIN_CREDS }} "ls -la /data01/virt79242/domeenid/www.erametsaselts.ee/eestimetsamaakler/.htaccess"
