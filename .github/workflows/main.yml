@@ -23,6 +23,18 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "Checking build directory contents:"
+          ls -la ./build/
+          if [ -f "./build/.htaccess" ]; then
+            echo "✓ .htaccess exists in build"
+            cat ./build/.htaccess
+          else
+            echo "✗ .htaccess missing from build!"
+            exit 1
+          fi
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
